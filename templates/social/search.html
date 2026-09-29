@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Find people | CampusCircle{% endblock %}{% block content %}<div class="content-page reading-page"><span class="kicker">GROW YOUR CIRCLE</span><h1>Find your people.</h1><p class="page-subtitle">Search for makers, learners and friends.</p><form method="get" class="search-box"><span aria-hidden="true">⌕</span><input type="search"
+       name="q"
+       value="{{ q }}"
+       placeholder="Search a name or username"
+       aria-label="Search people"
+       autofocus><button class="primary-button">Search</button></form><div class="people-results">{% for member in users %}<a class="person-card" href="{% url 'profile' member.username %}"><span class="avatar">{% if member.profile.avatar_url %}<img src="{{ member.profile.avatar_url }}" alt="">{% else %}{{ member.username|first|upper }}{% endif %}</span><span><strong>{{ member.get_full_name|default:member.username }}</strong><small>@{{ member.username }}</small></span><span class="person-arrow">↗</span></a>{% empty %}<div class="empty-state"><span>⌕</span><h2>{% if q %}No people found.{% else %}The right connection starts with a search.{% endif %}</h2><p>{% if q %}Try another username or name.{% else %}Enter a name above to discover members.{% endif %}</p></div>{% endfor %}</div></div>{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f6f4ef"><title>{% block title %}CampusCircle{% endblock %}</title><link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml"><link rel="stylesheet" href="{% static 'css/style.css' %}"></head>
+<body>
+  <div class="app-shell">
+    {% if user.is_authenticated %}<aside class="side-nav"><a class="wordmark" href="{% url 'feed' %}"><span class="mark">C<span>✳</span></span><span>campus<span>circle</span></span></a><p class="side-caption">A space to make things happen.</p><nav aria-label="Main navigation"><a href="{% url 'feed' %}"
+   {% if request.resolver_match.url_name == 'feed' %}class="active"{% endif %}><span class="nav-icon">⌂</span> Home</a><a href="{% url 'explore' %}"
+   {% if request.resolver_match.url_name == 'explore' %}class="active"{% endif %}><span class="nav-icon">◇</span> Explore</a><a href="{% url 'search_users' %}"
+   {% if request.resolver_match.url_name == 'search_users' %}class="active"{% endif %}><span class="nav-icon">⌕</span> Find people</a><a href="{% url 'saved_posts' %}"
+   {% if request.resolver_match.url_name == 'saved_posts' %}class="active"{% endif %}><span class="nav-icon">▣</span> Saved</a><a href="{% url 'profile' user.username %}"
+   {% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'edit_profile' %}class="active"{% endif %}><span class="nav-icon">◉</span> My profile</a></nav><button class="compose-button" type="button" data-open-create>+ &nbsp; Create a post</button><div class="side-account"><div class="avatar small">{{ user.username|first|upper }}</div><div><strong>{{ user.first_name|default:user.username }}</strong><small>@{{ user.username }}</small></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button aria-label="Log out" title="Log out">↗</button></form></div></aside>{% endif %}
+    <main class="main-content {% if not user.is_authenticated %}auth-content{% endif %}">{% if user.is_authenticated %}<div class="mobile-top"><a class="wordmark" href="{% url 'feed' %}"><span class="mark">C<span>✳</span></span><span>campus<span>circle</span></span></a><button data-open-create aria-label="Create a post">+</button></div>{% endif %}{% if messages %}<div class="flash-stack" role="status">{% for message in messages %}<div class="flash {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% block content %}{% endblock %}</main>
+    {% if user.is_authenticated %}<nav class="mobile-nav" aria-label="Mobile navigation"><a href="{% url 'feed' %}"
+   {% if request.resolver_match.url_name == 'feed' %}class="active"{% endif %}><span>⌂</span>Home</a><a href="{% url 'explore' %}"
+   {% if request.resolver_match.url_name == 'explore' %}class="active"{% endif %}><span>◇</span>Explore</a><a href="{% url 'search_users' %}"
+   {% if request.resolver_match.url_name == 'search_users' %}class="active"{% endif %}><span>⌕</span>Search</a><a href="{% url 'saved_posts' %}"
+   {% if request.resolver_match.url_name == 'saved_posts' %}class="active"{% endif %}><span>▣</span>Saved</a><a href="{% url 'profile' user.username %}"
+   {% if request.resolver_match.url_name == 'profile' %}class="active"{% endif %}><span>◉</span>Profile</a></nav>
+    <div class="modal" id="createModal" aria-hidden="true"><div class="modal-shade" data-close-create></div><section class="modal-dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="composerTitle"><header><h2 id="composerTitle">Create a post</h2><button data-close-create type="button" aria-label="Close">×</button></header><form method="post"
+      action="{% url 'create_post' %}"
+      enctype="multipart/form-data"
+      class="compose-form">{% csrf_token %}<label>Topic<select name="topic" required><option value="BUILD">Build</option><option value="LEARN">Learn</option><option value="EVENTS">Events</option><option value="ASK">Ask</option><option value="OPPORTUNITIES">Opportunities</option></select></label><label>Your update<textarea name="content"
+          rows="5"
+          maxlength="1000"
+          placeholder="What are you working on or wondering about?"
+          required></textarea></label><label class="file-picker">Attach an image <small>JPG, PNG, WebP or GIF · up to 5 MB</small><input type="file"
+       name="image"
+       accept="image/png,image/jpeg,image/webp,image/gif"></label><label>Or add an image link <input name="image_url"
+        type="url"
+        placeholder="https://example.com/photo.jpg"></label><button class="primary-button" type="submit">Publish post ↗</button></form></section></div>{% endif %}
+</div>
+<script src="{% static 'js/app.js' %}" defer></script>
+</body>
+</html>
