@@ -1,85 +1,571 @@
-# CampusCircle — a community for student makers
+# CampusCircle
 
-**CodeAlpha Full Stack Development · Task 2**  
-**Adapted and developed by Nunna Venkata Sai Manikanta**
+### A Community Platform for Student Makers
 
-CampusCircle is a mobile-first social application built around student projects and learning. Members can publish updates under five topics — Build, Learn, Events, Ask and Opportunities — follow one another, comment, like, and save conversations to revisit later. The desktop layout offers a focused feed and member suggestions; mobile screens use bottom navigation.
+CampusCircle is a full-stack social media platform developed as **Task 2 – Social Media Platform** for the **CodeAlpha Full Stack Development Internship**.
 
-## Features
+The platform is designed for students to share projects, learning updates, events, questions, and opportunities while connecting with other members through posts, comments, likes, follows, bookmarks, and profiles.
 
-- Registration, sign in/out and editable profiles with name, bio, location and avatar URL.
-- A community feed with topic filters and a Following view.
-- Text posts with an optional uploaded image or image URL.
-- Comments, likes, follow/unfollow, profile stats and your own post deletion.
-- Saved posts, people search and a topic-based Explore grid.
-- Django admin for moderation and data inspection.
-- Fictional local demo community via `seed_demo`, with unusable passwords for sample accounts.
+---
 
-Uploads are limited to 5 MB and checked as images. The demo seed command is optional; create a normal account to interact with sample posts.
+## Project Demo
 
-## Stack
+Watch the complete CampusCircle project demonstration on LinkedIn:
 
-Python, Django 5.2, Pillow, Django templates, HTML, CSS, JavaScript and SQLite. JavaScript handles the composer and a few interface actions; posts and relationships are saved by Django views in the database. The local design uses Google Fonts when online and system fonts when offline.
+### [▶ View CampusCircle Demo on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7510747080848461824/)
 
-## Quick start on Windows
+The demo showcases:
 
-Extract the ZIP and double-click **`START.bat`** inside the project folder. It creates `.venv`, installs packages, prepares the database, loads fictional demo content, and starts the server. Use one project at a time on port 8000.
+- User registration and login
+- Personalized feed
+- User profiles
+- Creating posts
+- Comments
+- Likes
+- Follow / unfollow
+- Saved posts
+- Explore section
+- Search
+- Responsive interface
+- Application workflow
 
-To run the steps manually, open a terminal inside the project folder:
+---
 
-Extract the ZIP and open a terminal **inside `CodeAlpha_CampusCircle`**:
+## Project Overview
 
-```powershell
-py -3 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python manage.py migrate
-python manage.py seed_demo
-python manage.py runserver
+CampusCircle is a community-focused social platform built around student interaction and collaboration.
+
+Users can create profiles, publish updates, interact with posts, follow other members, save useful content, search for people, and explore posts by topic.
+
+The application combines frontend design, backend logic, authentication, database relationships, media uploads, and responsive layouts into a complete full-stack project.
+
+---
+
+## Key Features
+
+### User Authentication
+
+- User registration
+- Sign in
+- Sign out
+- Django authentication
+- User-specific sessions
+
+### User Profiles
+
+Each member has a profile containing:
+
+- Name
+- Bio
+- Location
+- Avatar
+- User posts
+- Followers count
+- Following count
+
+Users can edit their own profile information.
+
+### Community Feed
+
+CampusCircle includes a structured social feed with topic-based filtering.
+
+Available topics include:
+
+- Build
+- Learn
+- Events
+- Ask
+- Opportunities
+
+Users can also switch to a **Following** feed to view posts from people they follow.
+
+### Posts
+
+Users can:
+
+- Create text posts
+- Add uploaded images
+- Add an image using a URL
+- Select a topic
+- View posts in the community feed
+- Delete their own posts
+
+### Comments
+
+Members can comment on posts and participate in conversations.
+
+### Likes
+
+Users can like and unlike posts.
+
+The like relationship is stored in the database to maintain interaction state.
+
+### Follow System
+
+Users can:
+
+- Follow other members
+- Unfollow members
+- View follower and following counts
+- Access posts from followed users
+
+### Saved Posts
+
+Important posts can be bookmarked and revisited later through the saved-posts section.
+
+### Search
+
+CampusCircle includes people search to help users discover other members.
+
+### Explore
+
+The Explore section provides topic-based content discovery across the platform.
+
+### Image Uploads
+
+Posts support image uploads.
+
+Uploaded files are validated as images and limited to **5 MB**.
+
+### Admin Panel
+
+Django Admin is available for:
+
+- User management
+- Profile inspection
+- Post moderation
+- Comment management
+- Database administration
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+- Django Templates
+
+### Backend
+
+- Python
+- Django 5.2
+
+### Database
+
+- SQLite
+- Django ORM
+
+### Media
+
+- Pillow
+- Django media handling
+
+### Development Tools
+
+- Visual Studio Code
+- Git
+- GitHub
+
+---
+
+## Application Flow
+
+```text
+User
+ │
+ ├── Register / Login
+ │
+ ▼
+CampusCircle Feed
+ │
+ ├── Create Post
+ ├── Browse Topics
+ ├── View Following Feed
+ │
+ ▼
+Social Interaction
+ │
+ ├── Like
+ ├── Comment
+ ├── Follow
+ ├── Save Post
+ │
+ ▼
+Explore / Search
+ │
+ ▼
+Profiles & Community
 ```
 
-Open <http://127.0.0.1:8000/register/> to make your account. Sample users cannot sign in. To use the admin, run `python manage.py createsuperuser` and open <http://127.0.0.1:8000/admin/>. If PowerShell blocks activation, use Command Prompt with `.venv\Scripts\activate.bat` or call `.\.venv\Scripts\python.exe` directly.
+---
 
-Verify the project:
-
-```powershell
-python manage.py check
-python manage.py test
-```
-
-## Project layout
+## Project Structure
 
 ```text
 CodeAlpha_CampusCircle/
-├── campuscircle_core/             Django settings and root routes
-├── social/                        Profiles, posts, topics, relationships, admin
-│   ├── management/commands/seed_demo.py
-│   └── migrations/
-├── templates/                     Feed, explore, search, profile, saved, auth
-├── static/css/                    Responsive visual system
-├── static/js/                     Composer and small interface actions
-├── START.bat                    Windows one-click local setup
+│
+├── campuscircle_core/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── social/
+│   ├── management/
+│   │   └── commands/
+│   │       └── seed_demo.py
+│   │
+│   ├── migrations/
+│   ├── admin.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
+│   └── ...
+│
+├── templates/
+│   ├── feed
+│   ├── explore
+│   ├── search
+│   ├── profile
+│   ├── saved
+│   └── authentication pages
+│
+├── static/
+│   ├── css/
+│   └── js/
+│
+├── START.bat
 ├── manage.py
 ├── requirements.txt
+├── PROJECT_REQUIREMENTS_CHECKLIST.md
 └── README.md
 ```
 
-## Data and behavior
+---
 
-`Profile` extends each Django user. `Post` stores author, content, topic and optional media. `Comment`, `Like`, `Follow` and `Bookmark` link members to posts or each other with unique constraints where appropriate. User uploads go to `media/posts/`, which is created at runtime and excluded from Git. The local SQLite database is also created at runtime.
+## Database Design
 
-## Internship task coverage
+CampusCircle uses Django models to manage the platform's social relationships.
 
-| Task 2 requirement | CampusCircle implementation |
-| --- | --- |
-| User profiles | Profile page, edit form, posts and relationship counts |
-| Posts and comments | Topic posts and comment threads |
-| Like/follow system | Toggle endpoints with database relationships |
-| HTML/CSS/JavaScript and Django | Responsive templates, styling, composer interactions, server views |
-| Database | SQLite-backed users, posts, comments and follows |
+### Profile
 
-## Local development note
+Extends the Django user account with additional profile information.
 
-The bundled defaults are for local development. Before public hosting, set `DJANGO_SECRET_KEY`, set `DJANGO_DEBUG=0`, configure `DJANGO_ALLOWED_HOSTS`, review moderation needs, and serve uploaded files safely. The sample content and usernames are fictional.
+### Post
 
-For CodeAlpha submission, create a repository named `CodeAlpha_CampusCircle`, upload this source, and record your own explanation video. The source archive contains no previous Git history, user database, or another person's images.
+Stores:
+
+- Author
+- Content
+- Topic
+- Optional media
+- Creation information
+
+### Comment
+
+Connects users with conversations under posts.
+
+### Like
+
+Stores post-like relationships between users and posts.
+
+### Follow
+
+Manages follower and following relationships between members.
+
+### Bookmark
+
+Stores saved posts for each user.
+
+---
+
+## Installation & Setup
+
+### Option 1 — Quick Start on Windows
+
+After cloning or downloading the project, run:
+
+```text
+START.bat
+```
+
+The setup script prepares the local environment, installs dependencies, initializes the database, loads demo content, and starts the application.
+
+---
+
+## Manual Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/nvsmanikanta-dev/CodeAlpha_CampusCircle.git
+```
+
+### 2. Open the Project Folder
+
+```bash
+cd CodeAlpha_CampusCircle
+```
+
+### 3. Create a Virtual Environment
+
+```bash
+py -3 -m venv .venv
+```
+
+### 4. Activate the Environment
+
+#### PowerShell
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+#### Command Prompt
+
+```cmd
+.venv\Scripts\activate.bat
+```
+
+### 5. Install Dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 6. Apply Database Migrations
+
+```bash
+python manage.py migrate
+```
+
+### 7. Load Demo Content
+
+```bash
+python manage.py seed_demo
+```
+
+This step is optional.
+
+The command creates fictional demo users and sample content for local testing.
+
+### 8. Start the Server
+
+```bash
+python manage.py runserver
+```
+
+### 9. Open CampusCircle
+
+```text
+http://127.0.0.1:8000/
+```
+
+To create your own account:
+
+```text
+http://127.0.0.1:8000/register/
+```
+
+---
+
+## Admin Setup
+
+Create a Django superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+Start the server:
+
+```bash
+python manage.py runserver
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+---
+
+## Verify the Project
+
+Run Django's system checks:
+
+```bash
+python manage.py check
+```
+
+Run the test suite:
+
+```bash
+python manage.py test
+```
+
+---
+
+## CodeAlpha Task 2
+
+### Social Media Platform
+
+This project was developed to satisfy the requirements of **CodeAlpha Task 2 – Social Media Platform**.
+
+### Task Coverage
+
+| CodeAlpha Requirement | CampusCircle Implementation |
+|---|---|
+| User Profiles | Editable member profiles with bio, location, avatar, posts, followers and following |
+| Posts | Topic-based posts with text and optional media |
+| Comments | Comment threads under posts |
+| Like System | Like / unlike functionality |
+| Follow System | Follow / unfollow relationships |
+| Frontend | HTML, CSS and JavaScript |
+| Backend | Django |
+| Database | SQLite with Django ORM |
+| Users | Django authentication and Profile model |
+| Posts | Post model |
+| Comments | Comment model |
+| Followers | Follow relationship model |
+
+---
+
+## Topics
+
+CampusCircle organizes community discussions into five categories:
+
+### Build
+
+Share projects, development progress, prototypes, and technical work.
+
+### Learn
+
+Share learning experiences, resources, concepts, and useful information.
+
+### Events
+
+Post information related to workshops, meetups, hackathons, and campus events.
+
+### Ask
+
+Ask questions and receive help from the community.
+
+### Opportunities
+
+Share internships, competitions, jobs, programs, and other opportunities.
+
+---
+
+## Demo Data
+
+CampusCircle provides an optional demo-data command:
+
+```bash
+python manage.py seed_demo
+```
+
+The generated demo accounts and sample content are fictional and are intended only for local testing.
+
+Demo users are not intended to be used as normal login accounts.
+
+---
+
+## Media Handling
+
+User-uploaded post images are stored locally under:
+
+```text
+media/posts/
+```
+
+Uploaded media and the local SQLite database are generated at runtime and are excluded from Git where appropriate.
+
+---
+
+## Local Development Notes
+
+The repository is configured for local development.
+
+Before deploying the project publicly, production configuration should include:
+
+- A secure Django secret key
+- `DEBUG=False`
+- Correct `ALLOWED_HOSTS`
+- Production-ready database configuration
+- Secure media storage
+- HTTPS
+- Proper static-file deployment
+- Moderation and security review
+
+---
+
+## Learning Outcomes
+
+Through CampusCircle, I gained practical experience in:
+
+- Full-stack application development
+- Django architecture
+- User authentication
+- Django ORM
+- Database relationships
+- Social-media workflows
+- Profile management
+- Posts and comments
+- Like systems
+- Follow relationships
+- Search functionality
+- Media uploads
+- Responsive frontend design
+- Git and GitHub version control
+
+---
+
+## Project Links
+
+### GitHub Repository
+
+[**CodeAlpha_CampusCircle**](https://github.com/nvsmanikanta-dev/CodeAlpha_CampusCircle)
+
+### LinkedIn Project Demo
+
+[**View CampusCircle Project Demo**](https://www.linkedin.com/feed/update/urn:li:activity:7510747080848461824/)
+
+### LinkedIn Profile
+
+[**Nunna Venkata Sai Manikanta**](https://www.linkedin.com/in/nunna-venkata-sai-manikanta-6a5506356/)
+
+---
+
+## Author
+
+### Nunna Venkata Sai Manikanta
+
+**Full Stack Development Intern**
+
+GitHub:  
+[github.com/nvsmanikanta-dev](https://github.com/nvsmanikanta-dev)
+
+LinkedIn:  
+[linkedin.com/in/nunna-venkata-sai-manikanta-6a5506356](https://www.linkedin.com/in/nunna-venkata-sai-manikanta-6a5506356/)
+
+---
+
+## Internship
+
+This project was completed as part of the **CodeAlpha Full Stack Development Internship**.
+
+**Task:** Task 2 – Social Media Platform  
+**Project:** CampusCircle
+
+---
+
+<p align="center">
+  <b>CampusCircle</b><br>
+  A Community for Student Makers<br><br>
+  CodeAlpha Full Stack Development Internship · Task 2
+</p>
